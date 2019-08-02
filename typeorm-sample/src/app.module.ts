@@ -9,6 +9,8 @@ import { CatModule } from './cat/cat.module';
       url: process.env.DATABASE_URL,
       synchronize: true,
       entities: [__dirname + '/**/*.entity.{ts,js}'],
+      logger: 'advanced-console',
+      logging: true,
     }),
     CatModule,
   ],

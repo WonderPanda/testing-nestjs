@@ -14,7 +14,7 @@ export class CatService {
     return this.catRepo.find();
   }
 
-  async getOne(id: string): Promise<Cat> {
+  async getOne(id: number): Promise<Cat> {
     return this.catRepo.findOneOrFail({ id });
   }
 
@@ -34,7 +34,7 @@ export class CatService {
     return new Cat(name, breed, age, id);
   }
 
-  async deleteOne(id: string): Promise<{ deleted: boolean; message?: string }> {
+  async deleteOne(id: number): Promise<{ deleted: boolean; message?: string }> {
     try {
       await this.catRepo.delete({ id });
       return { deleted: true };

@@ -1,5 +1,5 @@
 export interface CatDTO {
-  id?: string;
+  id?: number;
   name?: string;
   breed?: string;
   age?: number;

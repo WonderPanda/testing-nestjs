@@ -5,12 +5,12 @@ import { Cat } from './cat.entity';
 import { CatService } from './cat.service';
 
 const catArray = [
-  new Cat('Test Cat 1', 'Test Breed 1', 4, 'uuid1'),
-  new Cat('Test Cat 2', 'Test Breed 2', 3, 'uuid2'),
-  new Cat('Test Cat 3', 'Test Breed 3', 2, 'uuid3'),
+  new Cat('Test Cat 1', 'Test Breed 1', 4, 1),
+  new Cat('Test Cat 2', 'Test Breed 2', 3, 2),
+  new Cat('Test Cat 3', 'Test Breed 3', 2, 3),
 ];
 
-const oneCat = new Cat('Test Cat 1', 'Test Breed 1', 4, 'a uuid');
+const oneCat = new Cat('Test Cat 1', 'Test Breed 1', 4, 1);
 
 describe('CatService', () => {
   let service: CatService;
@@ -55,8 +55,8 @@ describe('CatService', () => {
   describe('getOne', () => {
     it('should get a single cat', () => {
       const repoSpy = jest.spyOn(repo, 'findOneOrFail');
-      expect(service.getOne('a uuid')).resolves.toEqual(oneCat);
-      expect(repoSpy).toBeCalledWith({ id: 'a uuid' });
+      expect(service.getOne(1)).resolves.toEqual(oneCat);
+      expect(repoSpy).toBeCalledWith({ id: 1 });
     });
   });
   describe('getOneByName', () => {
@@ -91,29 +91,29 @@ describe('CatService', () => {
           name: 'Test Cat 1',
           breed: 'Test Breed 1',
           age: 4,
-          id: 'a uuid',
+          id: 1,
         }),
       ).resolves.toEqual(oneCat);
       expect(repo.update).toBeCalledTimes(1);
       expect(repo.update).toBeCalledWith(
-        { id: 'a uuid' },
-        { name: 'Test Cat 1', breed: 'Test Breed 1', age: 4, id: 'a uuid' },
+        { id: 1 },
+        { name: 'Test Cat 1', breed: 'Test Breed 1', age: 4, id: 1 },
       );
     });
   });
   describe('deleteOne', () => {
     it('should return {deleted: true}', () => {
-      expect(service.deleteOne('a uuid')).resolves.toEqual({ deleted: true });
+      expect(service.deleteOne(1)).resolves.toEqual({ deleted: true });
     });
     it('should return {deleted: false, message: err.message}', () => {
       const repoSpy = jest
         .spyOn(repo, 'delete')
         .mockRejectedValueOnce(new Error('Bad Delete Method.'));
-      expect(service.deleteOne('a bad uuid')).resolves.toEqual({
+      expect(service.deleteOne(-45871)).resolves.toEqual({
         deleted: false,
         message: 'Bad Delete Method.',
       });
-      expect(repoSpy).toBeCalledWith({ id: 'a bad uuid' });
+      expect(repoSpy).toBeCalledWith({ id: -45871 });
       expect(repoSpy).toBeCalledTimes(1);
     });
   });

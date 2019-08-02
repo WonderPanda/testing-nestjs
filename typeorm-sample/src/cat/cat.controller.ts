@@ -22,7 +22,7 @@ export class CatController {
   }
 
   @Get('/:id')
-  async getById(@Param('id') id: string): Promise<Cat> {
+  async getById(@Param('id') id: number): Promise<Cat> {
     return this.catService.getOne(id);
   }
 
@@ -42,7 +42,7 @@ export class CatController {
   }
 
   @Delete('/delete/:id')
-  async deleteCat(@Param('id') id: string): Promise<{ deleted: boolean }> {
+  async deleteCat(@Param('id') id: number): Promise<{ deleted: boolean }> {
     return this.catService.deleteOne(id);
   }
 }

@@ -2,8 +2,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Cat {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   name: string;
@@ -14,13 +14,13 @@ export class Cat {
   @Column({ type: 'int' })
   age: number;
 
-  constructor(name: string, breed?: string, age?: number, id?: string);
-  constructor(name: string, breed: string, age?: number, id?: string);
-  constructor(name: string, breed: string, age: number, id?: string);
-  constructor(name: string, breed: string, age: number, id: string);
-  constructor(name?: string, breed?: string, age?: number, id?: string);
-  constructor(name?: string, breed?: string, age?: number, id?: string) {
-    this.id = id || '';
+  constructor(name: string, breed?: string, age?: number, id?: number);
+  constructor(name: string, breed: string, age?: number, id?: number);
+  constructor(name: string, breed: string, age: number, id?: number);
+  constructor(name: string, breed: string, age: number, id: number);
+  constructor(name?: string, breed?: string, age?: number, id?: number);
+  constructor(name?: string, breed?: string, age?: number, id?: number) {
+    this.id = id || -1;
     this.name = name || '';
     this.breed = breed || '';
     this.age = age || NaN;

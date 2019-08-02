@@ -85,17 +85,17 @@ describe('Cat Controller', () => {
   });
   describe('getById', () => {
     it('should get a single cat', () => {
-      expect(controller.getById('a strange id')).resolves.toEqual({
+      expect(controller.getById(1)).resolves.toEqual({
         name: 'Test Cat 1',
         breed: 'Test Breed 1',
         age: 4,
-        id: 'a strange id',
+        id: 1,
       });
-      expect(controller.getById('a different id')).resolves.toEqual({
+      expect(controller.getById(2)).resolves.toEqual({
         name: 'Test Cat 1',
         breed: 'Test Breed 1',
         age: 4,
-        id: 'a different id',
+        id: 2,
       });
     });
   });
@@ -112,13 +112,13 @@ describe('Cat Controller', () => {
           name: 'Aqua',
           breed: 'Maine Coon',
           age: 5,
-          id: 'a new uuid',
+          id: 3,
         });
       expect(controller.getByName('Aqua')).resolves.toEqual({
         name: 'Aqua',
         breed: 'Maine Coon',
         age: 5,
-        id: 'a new uuid',
+        id: 3,
       });
       expect(getByNameSpy).toBeCalledWith('Aqua');
     });
@@ -151,7 +151,7 @@ describe('Cat Controller', () => {
   });
   describe('deleteCat', () => {
     it('should return that it deleted a cat', () => {
-      expect(controller.deleteCat('a uuid that exists')).resolves.toEqual({
+      expect(controller.deleteCat(12)).resolves.toEqual({
         deleted: true,
       });
     });
@@ -159,10 +159,10 @@ describe('Cat Controller', () => {
       const deleteSpy = jest
         .spyOn(service, 'deleteOne')
         .mockResolvedValueOnce({ deleted: false });
-      expect(
-        controller.deleteCat('a uuid that does not exist'),
-      ).resolves.toEqual({ deleted: false });
-      expect(deleteSpy).toBeCalledWith('a uuid that does not exist');
+      expect(controller.deleteCat(-458712)).resolves.toEqual({
+        deleted: false,
+      });
+      expect(deleteSpy).toBeCalledWith(-458712);
     });
   });
 });
